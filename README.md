@@ -1,2 +1,3 @@
 # DeepLearningModule
-Deep learning Core engine for specific goal
+
+run build.sh file to import essential package.
