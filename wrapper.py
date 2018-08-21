@@ -49,3 +49,4 @@ print(clf.inference('사실 요즘 배가 아프고 구토가 심해서 왔어�
 print(clf.inference('어젯밤에 설사를 하다가 명치가 아팠어요.'))
 print(clf.inference('설사가 심한데 약을 먹어야 할까요?'))
 print(clf.inference('배에 가스가 찬 기분이에요.'))
+print(clf.inference('어머니가 위암으로 돌아가셨어요.'))
