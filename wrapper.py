@@ -2,7 +2,6 @@
 import numpy as np
 from konlpy.tag import Twitter
 from sklearn.externals import joblib
-import pandas as pd
 import sys
 
 reload(sys)
@@ -32,8 +31,6 @@ class Classifier:
 clf = Classifier()
 Rbf_svm = clf
 
-data_df = pd.read_csv('total.csv', encoding='utf-8')
-labels, levels = pd.factorize(data_df['classification'])
 
 """
 print(clf.pipe.score(data_df['tokens'], labels))
