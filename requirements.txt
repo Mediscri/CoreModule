@@ -1,0 +1,10 @@
+konlpy==0.4.4
+numpy==1.15.0
+scipy==1.1.0
+scikit-learn==0.19.2
+matplotlib==2.2.3
+JPype1==0.6.3
+pandas
+msgpack
+ipython
+jupyter
