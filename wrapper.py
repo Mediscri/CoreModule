@@ -3,27 +3,28 @@ import numpy as np
 from konlpy.tag import Twitter
 from sklearn.externals import joblib
 import pandas as pd
-import sys
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
+
+class wrapper:
+    @staticmethod
+    def pos_tagging_with_stem(text):
+        text_pos = twitter.pos(text, norm=False, stem=True)
+        return ' '.join([token for token, pos in text_pos
+                         if pos not in ['Punctuation']])
+
 
 twitter = Twitter()
 
 
-def pos_tagging_with_stem(text):
-    text_pos = twitter.pos(text, norm=False, stem=True)
-    return ' '.join([token for token, pos in text_pos
-                     if pos not in ['Punctuation']])
-
-
 class Classifier:
-    def __init__(self, pipe_file_name='pipe.sav', level_file_name='levels.sav'):
+    def __init__(self, pipe_file_name='pipe-svm.sav', level_file_name='levels.sav', wrapper_file_name='wrapper.sav'):
         self.pipe = joblib.load(pipe_file_name)
         self.levels = joblib.load(level_file_name)
+        self.wrapper = joblib.load(wrapper_file_name)
+        print(self.wrapper)
 
     def inference(self, text):
-        values = self.pipe.predict_proba([pos_tagging_with_stem(text)])[0]
+        values = self.pipe.predict_proba([self.wrapper.pos_tagging_with_stem(text)])[0]
         top_score_map = sorted([(self.levels[i], values[i]) for i in range(len(values)) if values[i] > 0.12],
                                key=lambda x: -x[1])
         return top_score_map
