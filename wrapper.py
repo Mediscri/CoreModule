@@ -3,6 +3,7 @@ import numpy as np
 from konlpy.tag import Twitter
 from sklearn.externals import joblib
 import pandas as pd
+import json
 
 
 class wrapper:
@@ -26,7 +27,8 @@ class Classifier:
         values = self.pipe.predict_proba([self.wrapper.pos_tagging_with_stem(text)])[0]
         top_score_map = sorted([(self.levels[i], values[i]) for i in range(len(values)) if values[i] > 0.12],
                                key=lambda x: -x[1])
-        return top_score_map
+        json_dict = {'deep_outputs': top_score_map, 'raw_sentence': text}
+        return json.dumps(json_dict)
 
 
 clf = Classifier()
