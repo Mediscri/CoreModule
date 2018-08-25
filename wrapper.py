@@ -21,7 +21,6 @@ class Classifier:
         self.pipe = joblib.load(pipe_file_name)
         self.levels = joblib.load(level_file_name)
         self.wrapper = joblib.load(wrapper_file_name)
-        print(self.wrapper)
 
     def inference(self, text):
         values = self.pipe.predict_proba([self.wrapper.pos_tagging_with_stem(text)])[0]
