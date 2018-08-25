@@ -25,5 +25,8 @@ class Classifier:
         values = self.pipe.predict_proba([self.wrapper.pos_tagging_with_stem(text)])[0]
         top_score_map = sorted([(self.levels[i], values[i]) for i in range(len(values)) if values[i] > 0.12],
                                key=lambda x: -x[1])
-        json_dict = {'deep_outputs': top_score_map, 'raw_sentence': text}
+        deep_outputs = []
+        for cat, prob in top_score_map:
+            deep_outputs.append({'category': cat, 'accuracy': prob})
+        json_dict = {'deep_outputs': deep_outputs, 'raw_sentence': text}
         return json.dumps(json_dict)
